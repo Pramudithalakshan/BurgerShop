@@ -1,15 +1,7 @@
-
-
-fetch("nav.html")
-    .then(res => res.text())
-    .then(nav => {
-        document.getElementById("navBar").innerHTML = nav;
-    })
-
 const ar = ["Lakshan", "123"]
 localStorage.setItem("loginDetails", JSON.stringify(ar));
 
-function login() { 
+function login() {
     let userName = document.getElementById("username").value.trim();
     let password = document.getElementById("password").value.trim();
 
@@ -21,14 +13,14 @@ function login() {
     }
 
     if (adminDetails[0] === userName && adminDetails[1] === password) {
-     
+
         window.location.replace("adminPanel.html");
     } else {
         Swal.fire("Invalid username or password", "warning");
     }
 }
 
- 
+
 
 function placeOrder() {
     let orderId = document.getElementById("orderId").value;
@@ -89,7 +81,7 @@ function placeOrder() {
             name: customerName,
             phone: customerPhoneNumber,
             orders: [{
-                orderId:orderId,
+                orderId: orderId,
                 name: itemName,
                 itemQty: qty,
                 unitPrice: price
@@ -123,17 +115,68 @@ function searchCustomer() {
 
 
 function generateOrderId() {
-    let customers = JSON.parse(localStorage.getItem("customers"));
-    let orders = customers[customers.length-1].orders;
-
-    if (!customers || customers.length === 0) {
-        return "OR0001";
+   
+    var customers = JSON.parse(localStorage.getItem("customers")) || [];
+    var maxNum = 0;
+    for (var i = 0; i < customers.length; i++) {
+        var orders = customers[i].orders || [];
+        for (var j = 0; j < orders.length; j++) {
+            var id = orders[j].orderId || '';
+            var num = parseInt(id.replace("OR", '')) || 0;
+            if (num > maxNum) maxNum = num;
+        }
     }
-    let lastOrderId = orders[orders.length-1].orderId;
-    let lastNumber = parseInt(lastOrderId.replace("OR", ""));
-    return "OR" + String(lastNumber+1).padStart(4, "0");
+    var next = maxNum + 1;
+    return 'OR' + String(next).padStart(4, '0');
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    var input = document.getElementById('orderId');
+    if (input) input.value = generateOrderId();
+});
 
- 
- 
+function addProduct() { 
+    let productName = document.getElementById("productName").value;
+    let productCategory = document.getElementById("productCategory").value;
+    let productPrice = document.getElementById("productPrice").value;
+    let productDesc = document.getElementById("productDesc").value;
+
+    if (productName === "" || productCategory === "" || productPrice === "" || productDesc === "") {
+        Swal.fire("Missing Fields", "Please fill all the fields", "warning");
+        return;
+    } else {
+        let tempProductArray = JSON.parse(localStorage.getItem("products")) || [];
+
+        for (let i = 0; i < tempProductArray.length; i++) {
+            if (tempProductArray[i].productName === productName) {
+                Swal.fire("Update Product", "Product Updated Successfully", "success");
+
+                tempProductArray[i].push({
+                    productPrice: productPrice,
+                    productDesc: productDesc
+                });
+
+                localStorage.setItem("products", JSON.stringify(tempProductArray));
+                document.getElementById("productName").value = "";
+                document.getElementById("productCategory").value = "";
+                document.getElementById("productPrice").value = "";
+                document.getElementById("productDesc").value = "";
+                return;
+            }
+        }
+        Swal.fire("Add Product", "Product Added Successfully", "success");
+
+        tempProductArray.push({
+            productName: productName,
+            productCategory: productCategory,
+            productPrice: productPrice,
+            productDesc: productDesc
+        });
+
+        localStorage.setItem("products", JSON.stringify(tempProductArray));
+        document.getElementById("productName").value = "";
+        document.getElementById("productCategory").value = "";
+        document.getElementById("productPrice").value = "";
+        document.getElementById("productDesc").value = "";
+    }
+}

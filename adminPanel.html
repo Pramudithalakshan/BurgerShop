@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,83 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .sidebar {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            padding: 12px 20px;
-            transition: all 0.3s;
-        }
-
-        .sidebar .nav-link:hover,
-        .sidebar .nav-link.active {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-        }
-
-        .card {
-            border: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-weight: 600;
-        }
-
-        .table-actions {
-            white-space: nowrap;
-        }
-
-        .btn-action {
-            padding: 4px 8px;
-            font-size: 0.875rem;
-        }
-
-        .content-section {
-            display: none;
-        }
-
-        .content-section:target {
-            display: block;
-        }
-
-        #customers:not(:target)~#default-view,
-        #products:target~#default-view,
-        #orders:target~#default-view {
-            display: none;
-        }
-
-        #customers:target,
-        #products:target,
-        #orders:target {
-            display: block;
-        }
-
-        .stats-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .modal-backdrop {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -114,22 +41,20 @@
                         <div class="col-md-4">
                             <div class="stats-card">
                                 <h5><i class="fas fa-users me-2"></i>Total Customers</h5>
-                                <h2>1,234</h2>
-                                <small>+12% from last month</small>
+                                <h2 id="totalCustomers">1,234</h2>
+                                
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="stats-card">
                                 <h5><i class="fas fa-box me-2"></i>Total Products</h5>
-                                <h2>456</h2>
-                                <small>+8% from last month</small>
+                                <h2 id="totalProducts">456</h2>  
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="stats-card">
                                 <h5><i class="fas fa-shopping-cart me-2"></i>Total Orders</h5>
-                                <h2>789</h2>
-                                <small>+15% from last month</small>
+                                <h2 id="totalOrders">789</h2>
                             </div>
                         </div>
                     </div>
@@ -138,46 +63,7 @@
                 <!-- Customers Section -->
                 <div id="customers" class="content-section">
                     <h2 class="mb-4">Manage Customers</h2>
-
-                    <!-- Add Customer Form -->
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-user-plus me-2"></i>Add New Customer
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">First Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter first name">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter last name">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" placeholder="Enter email">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Phone</label>
-                                        <input type="tel" class="form-control" placeholder="Enter phone number">
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Address</label>
-                                    <textarea class="form-control" rows="2" placeholder="Enter address"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Add
-                                    Customer</button>
-                                <button type="reset" class="btn btn-secondary"><i
-                                        class="fas fa-undo me-2"></i>Reset</button>
-                            </form>
-                        </div>
-                    </div>
-
+ 
                     <!-- Customers List -->
                     <div class="card">
                         <div class="card-header">
@@ -263,39 +149,30 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Product Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter product name">
+                                        <input type="text" class="form-control" placeholder="Enter product name" id="productName">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Category</label>
-                                        <select class="form-select">
+                                        <select class="form-select" id="productCategory">
                                             <option selected>Select category</option>
-                                            <option>Electronics</option>
-                                            <option>Clothing</option>
-                                            <option>Food</option>
-                                            <option>Books</option>
+                                            <option>Burger</option>
+                                            <option>Drink</option>
+                                            <option>Fries</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">Price</label>
-                                        <input type="number" class="form-control" placeholder="0.00" step="0.01">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">Stock Quantity</label>
-                                        <input type="number" class="form-control" placeholder="0">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label class="form-label">SKU</label>
-                                        <input type="text" class="form-control" placeholder="Enter SKU">
+                                        <input type="number" class="form-control" placeholder="0.00" step="0.01" id="productPrice">
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Description</label>
                                     <textarea class="form-control" rows="3"
-                                        placeholder="Enter product description"></textarea>
+                                        placeholder="Enter product description" id="productDesc"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Add
+                                <button type="button" class="btn btn-primary" onclick="addProduct();"><i class="fas fa-save me-2"></i>Add
                                     Product</button>
                                 <button type="reset" class="btn btn-secondary"><i
                                         class="fas fa-undo me-2"></i>Reset</button>
@@ -523,6 +400,7 @@
             </div>
         </div>
     </div>
+    <script src="js/app.js""></script>
 </body>
 
 </html>

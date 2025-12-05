@@ -141,7 +141,8 @@
                             <h4 class="fw-bold text-center mb-3">Make an Order</h4>
                             <div class="mb-2">
                                 <label class="form-label">Order Id</label>
-                                <input type="text" class="form-control" id="orderId" placeholder="Enter Order Id" disabled>
+                                <input type="text" class="form-control" id="orderId" placeholder="Enter Order Id"
+                                    disabled>
                             </div>
 
                             <div class="mb-2">
@@ -161,7 +162,8 @@
 
                             <div class="mb-2">
                                 <label class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" id="customerPhone" placeholder="07X-XXXXXXX" onkeyup="searchCustomer();">
+                                <input type="text" class="form-control" id="customerPhone" placeholder="07X-XXXXXXX"
+                                    onkeyup="searchCustomer();">
                             </div>
 
                             <div class="mb-2">
@@ -180,11 +182,14 @@
     <footer class="bg-dark text-light text-center py-3">
         <p class="mb-0">© 2025 Burger Shop. All Rights Reserved.</p>
     </footer>
-
-    <!-- Bootstrap JS -->
-     <script>
-        document.getElementById("orderId").value = generateOrderId();
-     </script>
+    <script>
+        fetch("nav.html")
+            .then(res => res.text())
+            .then(nav => {
+                document.getElementById("navBar").innerHTML = nav;
+            })
+        
+    </script>
     <script src="js/app.js"></script>
 </body>
 
