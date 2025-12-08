@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,48 +39,19 @@
                             <div class="stats-card">
                                 <h5><i class="fas fa-users me-2"></i>Total Customers</h5>
                                 <h2 id="totalCustomers">1,234</h2>
-                                
+
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="stats-card">
                                 <h5><i class="fas fa-box me-2"></i>Total Products</h5>
-                                <h2 id="totalProducts">456</h2>  
+                                <h2 id="totalProducts">456</h2>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="stats-card">
                                 <h5><i class="fas fa-shopping-cart me-2"></i>Total Orders</h5>
                                 <h2 id="totalOrders">789</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Customers Section -->
-                <div id="customers" class="content-section">
-                    <h2 class="mb-4">Manage Customers</h2>
- 
-                    <!-- Customers List -->
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="fas fa-list me-2"></i>Customer List
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Phone</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="customerTable">
-                                        
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -103,7 +71,8 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Product Name</label>
-                                        <input type="text" class="form-control" placeholder="Enter product name" id="productName">
+                                        <input type="text" class="form-control" placeholder="Enter product name"
+                                            id="productName">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Category</label>
@@ -118,16 +87,18 @@
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">Price</label>
-                                        <input type="number" class="form-control" placeholder="0.00" step="0.01" id="productPrice">
+                                        <input type="number" class="form-control" placeholder="0.00" step="0.01"
+                                            id="productPrice">
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Description</label>
-                                    <textarea class="form-control" rows="3"
-                                        placeholder="Enter product description" id="productDesc"></textarea>
+                                    <textarea class="form-control" rows="3" placeholder="Enter product description"
+                                        id="productDesc"></textarea>
                                 </div>
                                 <input type="file" id="imagePicker" accept="image/*">
-                                <button type="button" class="btn btn-primary" onclick="addProduct();"><i class="fas fa-save me-2"></i>Add
+                                <button type="button" class="btn btn-primary" onclick="addProduct();"><i
+                                        class="fas fa-save me-2"></i>Add
                                     Product</button>
                                 <button type="reset" class="btn btn-secondary"><i
                                         class="fas fa-undo me-2"></i>Reset</button>
@@ -154,7 +125,7 @@
                                     </thead>
                                     <tbody>
                                         <tr id="productList">
-                                           
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -163,11 +134,42 @@
                     </div>
                 </div>
 
+                <!-- Customers Section -->
+                <div id="customers" class="content-section">
+
+                    <!-- Update Customer -->
+                    <div id="customerUpdateForm"></div>
+
+                    <!-- Customers List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-list me-2"></i>Customer List
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Phone</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="customerTable">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- END customers -->
+
                 <!-- Orders Section -->
                 <div id="orders" class="content-section">
                     <h2 class="mb-4">Manage Orders</h2>
 
-                    <!-- Orders List -->
                     <div class="card">
                         <div class="card-header">
                             <i class="fas fa-list me-2"></i>Orders List
@@ -188,17 +190,18 @@
                                         </tr>
                                     </thead>
                                     <tbody id="orderTable">
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+            </div> <!-- END main content -->
         </div>
     </div>
-    <script src="js/app.js""></script>
-</body>
 
+    <script src="js/app.js"></script>
+</body>
 </html>

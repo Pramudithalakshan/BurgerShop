@@ -230,35 +230,90 @@ document.addEventListener('DOMContentLoaded', function () {
     let input5 = document.getElementById("productList");
     if(input5) loadProduct();
     let input6 = document.getElementById('orderId');
-    if (input6) input.value = generateOrderId();
+    if (input6) input6.value = generateOrderId();
 });
 function loadCustomer() {
     let customers = JSON.parse(localStorage.getItem("customers")) || [];
-    let num = 0;
+    let html = '';
     for (let i = 0; i < customers.length; i++) {
-        document.getElementById("customerTable").innerHTML = `
+        html += `
                                         <tr>
-                                            <td>${num + 1}</td>
+                                            <td>${i + 1}</td>
                                             <td>${customers[i].name}</td>
                                             <td>${customers[i].phone}</td>
                                             <td class="table-actions">
-                                                <button class="btn btn-sm btn-warning btn-action"><i
+                                                <button class="btn btn-sm btn-warning btn-action" onclick="loadUpdateCustomerForm('${customers[i].name}', '${customers[i].phone}')"><i
                                                         class="fas fa-edit"></i> Edit</button>
                                                 <button class="btn btn-sm btn-danger btn-action"><i
                                                         class="fas fa-trash"></i> Delete</button>
                                             </td>
-                                        </tr>`
+                                        </tr>`;
     }
+    document.getElementById("customerTable").innerHTML = html;
 }
+function loadUpdateCustomerForm(cName,cPhone){
+  document.getElementById("customerUpdateForm").innerHTML = ` 
+                 <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-user-plus me-2"></i>Update Customer
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Cutomer Name</label>
+                                        <input type="text" id="updateCustomerName" class="form-control" placeholder="Enter first name" value="${cName}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Phone</label>
+                                        <input type="tel" id="updateCustomerPhone" class="form-control" placeholder="Enter phone number" value="${cPhone}">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="updateCustomer('${cPhone}');"><i class="fas fa-save me-2"></i>Update Customer</button>
+                                <button type="reset" class="btn btn-secondary"><i class="fas fa-undo me-2"></i>Reset</button>
+                            </form>
+                        </div>
+                    </div>`
+}
+function updateCustomer(cPhone){
+    var customers = JSON.parse(localStorage.getItem("customers")) || [];
+    var newCustomerName = document.getElementById("updateCustomerName").value.trim();
+    var newCustomerPhone = document.getElementById("updateCustomerPhone").value.trim();
 
+    if (newCustomerName === "" || newCustomerPhone === "") {
+        Swal.fire("Missing Fields", "Please fill name and phone", "warning");
+        return;
+    }
+
+    for (var i = 0; i < customers.length; i++) {
+        if (customers[i].phone === cPhone) {
+            if (customers[i].name === newCustomerName && customers[i].phone === newCustomerPhone) {
+                Swal.fire("No changes", "Name and phone are unchanged", "info");
+                return;
+            }
+
+            customers[i].name = newCustomerName;
+            customers[i].phone = newCustomerPhone;
+            localStorage.setItem("customers", JSON.stringify(customers));
+            document.getElementById("customerUpdateForm").innerHTML = "";
+            loadCustomer();
+            Swal.fire("Updated", "Customer updated successfully", "success");
+            return;
+        }
+    }
+    Swal.fire("Not found", "Customer not found", "error");
+}
 
 function loadOrder() {
     let customers = JSON.parse(localStorage.getItem("customers")) || [];
     for (let i = 0; i < customers.length; i++) {
         let orders = customers[i].orders || [];
+        let html = '';
         for (let j = 0; j < orders.length; j++) {
 
-            document.getElementById("orderTable").innerHTML = `
+           html += `
                                         <tr>
                                             <td>${orders[j].orderId}</td>
                                             <td>${customers[i].name}</td>
@@ -275,6 +330,7 @@ function loadOrder() {
                                             </td>
                                         </tr>`
         }
+         document.getElementById("orderTable").innerHTML = html;
     }
 }
 
@@ -307,8 +363,9 @@ function loadDashboard() {
 function loadProduct() {
     let products = JSON.parse(localStorage.getItem("products")) || [];
     let count=1;
+    let html='';
     for (let i = 0; i < products.length; i++) {
-        document.getElementById("productList").innerHTML = ` 
+       html += ` 
                                       <td>${count}</td>
                                             <td>${products[i].productName}</td>
                                             <td>${products[i].productCategory}</td>
@@ -320,5 +377,7 @@ function loadProduct() {
                                                         class="fas fa-trash"></i> Delete</button>
                                          </td>`
     }
+     document.getElementById("productList").innerHTML = html;
     count++;
 }
+
